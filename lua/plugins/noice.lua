@@ -43,18 +43,24 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       background_colour = "#fdf6e3",
+      render = "minimal",
+      stages = "fade",
       timeout = 1000,
+      max_width = 40,
+      max_length = 4
     },
-    config = function()
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        callback = function()
-          vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "#fdf6e3" })
-          vim.api.nvim_set_hl(0, "NotifyINFO", { fg = "#268bd2" })
-          vim.api.nvim_set_hl(0, "NotifyWARN", { fg = "#b58900" })
-          vim.api.nvim_set_hl(0, "NotifyERROR", { fg = "#dc322f" })
-        end,
-      })
+    config = function(_, opts)
+      local notify = require("notify")
+      notify.setup(opts)
+      vim.notify = notify
+      vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "#fdf6e3" })
+      vim.api.nvim_set_hl(0, "NotifyINFO", { fg = "#268bd2" })
+      vim.api.nvim_set_hl(0, "NotifyWARN", { fg = "#b58900" })
+      vim.api.nvim_set_hl(0, "NotifyERROR", { fg = "#dc322f" })
+      vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#859900" })
+      vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = "#859900" })
+      vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = "#859900" })
+      vim.api.nvim_set_hl(0, "NotifyINFOBody", { fg = "#859900" })
     end
   }
 }
-
